@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tut_2/widgets/new_transaction.dart';
 import 'package:tut_2/widgets/transaction_list.dart';
 import './models/transaction.dart';
+import './widgets/chart.dart';
 
 void main() {
   runApp(MyHomePage());
@@ -15,6 +16,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   final List<Transaction> _userTransaction = [];
+
+  List<Transaction> get _recentTransaction {
+    return _userTransaction.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   void _addNewTransaction(String title, double amount) {
     final newTx = Transaction(
@@ -76,12 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Container(
-                    width: double.infinity,
-                    child: Card(
-                      child: Text('Chart'),
-                      elevation: 5,
-                    )),
+                Chart(_recentTransaction),
                 TransactionList(_userTransaction),
               ],
             ),
