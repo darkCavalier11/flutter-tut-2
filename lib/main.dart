@@ -23,11 +23,13 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
+    print(chosenDate);
+
     final newTx = Transaction(
       title: title,
       amount: amount,
-      date: DateTime.now(),
+      date: chosenDate,
       id: DateTime.now().toString(),
     );
     setState(() {
@@ -48,6 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((tx) {
+        return tx.id == id;
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
@@ -61,7 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 18,
-                    fontWeight: FontWeight.bold)),
+                    fontWeight: FontWeight.bold),
+                button: TextStyle(color: Colors.white)),
             appBarTheme: AppBarTheme(
                 textTheme: ThemeData.light().textTheme.copyWith(
                     title: TextStyle(
@@ -84,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               children: <Widget>[
                 Chart(_recentTransaction),
-                TransactionList(_userTransaction),
+                TransactionList(_userTransaction, _deleteTransaction),
               ],
             ),
           ),
@@ -92,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: Builder(
             builder: (context) => FloatingActionButton(
+              backgroundColor: Theme.of(context).accentColor,
               child: Icon(Icons.add),
               onPressed: () => _startAddNewTransaction(context),
             ),
