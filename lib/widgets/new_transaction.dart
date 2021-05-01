@@ -27,7 +27,8 @@ class _NewTransactionState extends State<NewTransaction> {
     print('Constructor NewTransaction state');
   }
 
-  // Inbuilt functions called at different moment 
+  // WIDGET LIFECYCLE
+  // Inbuilt functions called at different moment
   // of widget lifecycle
   @override
   void initState() {

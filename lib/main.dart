@@ -69,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   bool _showChart = false;
 
+  // APP LIFECYCLE
   // adding observer for didChangeAppLifeCycleState
   // to work. observer is current class
   @override

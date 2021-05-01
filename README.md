@@ -1,16 +1,6 @@
-# tut_2
+# TUT 2
+## context
+holds meta information, position of widget etc. every widget get context and builds communication along widget tree. we use context for accessing Theme and MediaQuery without passing directly these data along the Widgets.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Key
+every widget in flutter can have a key. stateless widget generally donot need a key. *initState* called before *build* in widget cycle. if we take a close look at widget tree and element tree; element tree maintain a reference to widget tree and respond to widget removal and addition in widget tree. when we remove a widget in widget tree a side by side reference comparson occurs. each widget in the Widget tree assigned get referenced from element tree. Note that state is maintained by element trees elements. so when key is not privided the referencing of widget and element occur in a round robbin fashion. for eg if there are 10 widget and 10 element and 1 widget is deleted the widget after the deleted widget get the state and element of deleted widget and so on. this can be seen by *initState* where assigning some value to a list of items inside the *initState* and deleting them one by one and seeing how state and element is carried.
