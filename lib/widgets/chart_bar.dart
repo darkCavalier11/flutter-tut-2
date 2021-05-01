@@ -9,8 +9,9 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // LayoutBuilder allow to get access to constraint
-    // that applied to the widget
+    // LayoutBuilder allow to get 
+    // access to constraint
+    // that applied to the widget above
     return LayoutBuilder(
       builder: (ctx, constraint) {
         return Column(
