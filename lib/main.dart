@@ -54,7 +54,10 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+// with is used to add mixin
+// add certain property and methods without fully
+// inheriting
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   @override
   final List<Transaction> _userTransaction = [];
 
@@ -65,6 +68,30 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   bool _showChart = false;
+
+  // adding observer for didChangeAppLifeCycleState
+  // to work. observer is current class
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  // When app lifecycle state changes
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+    // resumed, paused(running in the background), inactive(a temporary state of inactive), suspended(removed from running apps)
+    super.didChangeAppLifecycleState(state);
+  }
+
+  // remove observer for avoid
+  // memory leaks
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   void _addNewTransaction(String title, double amount, DateTime chosenDate) {
     print(chosenDate);
